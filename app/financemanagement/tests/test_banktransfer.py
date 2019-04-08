@@ -1,6 +1,6 @@
 import unittest
 from app.financemanagement.bankaccount import BankAccount
-from app.financemanagement.banktransfer import BankTransfer
+from app.financemanagement.bankingoperation.banktransfer import BankTransfer
 from app.financemanagement.amount import Amount
 from app.financemanagement.accounttype import AccountType
 
