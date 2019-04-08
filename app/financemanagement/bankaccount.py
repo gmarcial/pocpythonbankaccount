@@ -36,3 +36,6 @@ class BankAccount(object):
 
     def getbalance(self):
         return self.__balance
+    
+    def gettype(self):
+        return self.__type
