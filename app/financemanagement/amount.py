@@ -23,3 +23,6 @@ class Amount(object):
         
     def __eq__(self, other):
         return (self.__value == other.__value)
+    
+    def __int__(self):
+        return self.__value

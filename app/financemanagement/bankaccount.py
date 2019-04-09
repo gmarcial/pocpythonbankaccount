@@ -12,7 +12,7 @@ class BankAccount(object):
         if(type(number) != int or number < 0):
             raise TypeError(f"The type informed is invalid for the context {number}")
 
-        self.__id = 0
+        self.__id = 10
         self.__number = number
         self.__balance = balance
         self.__type = accounttype
@@ -39,3 +39,9 @@ class BankAccount(object):
     
     def gettype(self):
         return self.__type
+    
+    def getid(self):
+        return self.__id
+    
+    def getnumber(self):
+        return self.__number

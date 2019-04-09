@@ -3,6 +3,8 @@ from app.financemanagement.bankaccount import BankAccount
 from app.financemanagement.bankingoperation.bankdraft import BankDraft
 from app.financemanagement.amount import Amount
 from app.financemanagement.accounttype import AccountType
+from app.financemanagement.bankingoperation.bankoperationtype import BankOperationType
+
 
 class TestBankDraft(unittest.TestCase):
 
@@ -10,7 +12,7 @@ class TestBankDraft(unittest.TestCase):
 
         target = "Hype"
         transferamount = Amount(100)
-        
+
         with self.assertRaises(TypeError):
             BankDraft(target, transferamount)
 
@@ -19,7 +21,7 @@ class TestBankDraft(unittest.TestCase):
         balance = Amount(1000)
         target = BankAccount(balance, AccountType.SAVINGS, 1231)
         transferamount = 100
-        
+
         with self.assertRaises(TypeError):
             BankDraft(target, transferamount)
 
@@ -30,10 +32,12 @@ class TestBankDraft(unittest.TestCase):
         transferamount = Amount(100)
 
         bankdraft = BankDraft(target, transferamount)
-        bankdraft.towithdraw()
+        withdrawrecord = bankdraft.towithdraw()
 
         newbalance = target.getbalance()
 
         expectedbalance = (initialbalance - transferamount)
 
         self.assertEqual(newbalance, expectedbalance)
+        self.assertEqual(withdrawrecord.getamount(), -int(transferamount))
+        self.assertEqual(withdrawrecord.getoperation(), BankOperationType.WITHDRAW)

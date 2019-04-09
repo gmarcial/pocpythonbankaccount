@@ -3,6 +3,7 @@ from app.financemanagement.bankaccount import BankAccount
 from app.financemanagement.bankingoperation.bankdeposit import BankDeposit
 from app.financemanagement.amount import Amount
 from app.financemanagement.accounttype import AccountType
+from app.financemanagement.bankingoperation.bankoperationtype import BankOperationType
 
 class TestBankDeposit(unittest.TestCase):
     
@@ -30,10 +31,12 @@ class TestBankDeposit(unittest.TestCase):
         transferamount = Amount(100)
         
         bankdeposit = BankDeposit(receiver, transferamount)
-        bankdeposit.todeposit()
+        depositrecord = bankdeposit.todeposit()
 
         newbalance = receiver.getbalance()
 
         expectedbalance = (initialbalance + transferamount)
 
         self.assertEqual(newbalance, expectedbalance)
+        self.assertEqual(depositrecord.getamount(), int(transferamount))
+        self.assertEqual(depositrecord.getoperation(), BankOperationType.DEPOSIT)
