@@ -5,6 +5,9 @@ class AccountType(Enum):
     SAVINGS = 0
     CHECKING = 1
 
+    def __int__(self):
+        self.value
+
 class SavingsAccountTypeRules:
 
     def __init__(self):

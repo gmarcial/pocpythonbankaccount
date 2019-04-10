@@ -1,18 +1,20 @@
+import random
 from app.financemanagement.amount import Amount
 from app.financemanagement.accounttype import AccountType
 
 class BankAccount(object):
     
-    def __init__(self, balance, accounttype, number):
+    def __init__(self, number, balance, accounttype, id = 0):
         
         if(type(balance) != Amount):
             raise TypeError(f"The type informed is invalid for the context {balance}")
         if(type(accounttype) != AccountType):
             raise TypeError(f"The type informed is invalid for the context {accounttype}")
+        #Create a test for this
         if(type(number) != int or number < 0):
             raise TypeError(f"The type informed is invalid for the context {number}")
 
-        self.__id = 10
+        self.__id = id
         self.__number = number
         self.__balance = balance
         self.__type = accounttype
