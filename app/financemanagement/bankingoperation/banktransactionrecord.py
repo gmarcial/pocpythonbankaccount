@@ -6,6 +6,8 @@ class BankTransactionRecord():
     
     def __init__(self, operation, whenoccurred, amount, description, contaid):
         
+        #Add property number...
+
         if(type(operation) != BankOperationType):
             raise TypeError(f"The type informed is invalid for the context {operation}")
         if(type(whenoccurred) != datetime):
@@ -36,3 +38,6 @@ class BankTransactionRecord():
 
     def getdescription(self):
         return self.__description
+    
+    def getcontaid(self):
+        return self.__contaid
