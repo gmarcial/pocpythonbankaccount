@@ -34,7 +34,7 @@ class BankTransfer(object):
         senderaccounttyperules.checklimitwithdrawal(self.__transferamount)
         self.__sender.withdraw(self.__transferamount)
 
-        recorddescription = f"Transferencia ocorrida no valor {self.__transferamount} com o remetente do numero de conta {self.__sender.getnumber()} e destinatario com numero de conta {self.__receiver.getnumber()}"
+        recorddescription = f"Transferencia ocorrida no valor {self.__transferamount.getvalue()} com o remetente do numero de conta {self.__sender.getnumber()} e destinatario com numero de conta {self.__receiver.getnumber()}"
         whenoccurred = datetime.now()
 
         receiveraccounttyperules = accounttyperulesfactory.make(

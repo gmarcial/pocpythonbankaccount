@@ -26,3 +26,6 @@ class Amount(object):
     
     def __int__(self):
         return self.__value
+    
+    def getvalue(self):
+        return self.__value
