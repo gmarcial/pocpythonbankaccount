@@ -19,7 +19,8 @@ class TestBankDraft(unittest.TestCase):
     def test_not_should_start_a_bank_draft_when_the_transfer_amount_is_an_invalid(self):
 
         balance = Amount(1000)
-        target = BankAccount(123, balance, AccountType.SAVINGS)
+
+        target = BankAccount("123", balance, AccountType.SAVINGS)
         transferamount = 100
 
         with self.assertRaises(TypeError):
@@ -28,7 +29,7 @@ class TestBankDraft(unittest.TestCase):
     def test_should_to_withdraw_a_amount_in_a_account(self):
 
         initialbalance = Amount(1000)
-        target = BankAccount(123, initialbalance, AccountType.SAVINGS, 10)
+        target = BankAccount("123", initialbalance, AccountType.SAVINGS, 10)
         transferamount = Amount(100)
 
         bankdraft = BankDraft(target, transferamount)

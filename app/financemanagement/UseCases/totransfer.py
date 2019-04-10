@@ -1,3 +1,4 @@
+from app.financemanagement.amount import Amount
 from app.financemanagement.bankaccount import BankAccount
 from app.financemanagement.infrasctructure import Session
 from app.financemanagement.bankingoperation.banktransfer import BankTransfer
@@ -14,7 +15,8 @@ class ToTransfer():
     def execute(self, senderaccountnumber, receiveraccountnumber, transferamount):
         
         #Validar targetaccountnumber
-
+        transferamount = Amount(transferamount)
+        
         senderaccount = self.__bankaccountrepository.findperaccountnumber(senderaccountnumber)
         receiveraccount = self.__bankaccountrepository.findperaccountnumber(receiveraccountnumber)
 

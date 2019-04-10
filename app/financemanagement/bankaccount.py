@@ -11,7 +11,7 @@ class BankAccount(object):
         if(type(accounttype) != AccountType):
             raise TypeError(f"The type informed is invalid for the context {accounttype}")
         #Create a test for this
-        if(type(number) != int or number < 0):
+        if(type(number) != str or len(number) < 0):
             raise TypeError(f"The type informed is invalid for the context {number}")
 
         self.__id = id

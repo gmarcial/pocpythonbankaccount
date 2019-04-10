@@ -18,7 +18,7 @@ class TestBankDeposit(unittest.TestCase):
     def test_not_should_start_a_bank_deposit_when_the_transfer_amount_is_an_invalid(self):
 
         balance = Amount(1000)
-        receiver = BankAccount(123, balance, AccountType.CHECKING)
+        receiver = BankAccount("123", balance, AccountType.CHECKING)
         transferamount = 100
         
         with self.assertRaises(TypeError):
@@ -27,7 +27,7 @@ class TestBankDeposit(unittest.TestCase):
     def test_should_deposit_a_amount_in_a_account(self):
 
         initialbalance = Amount(1000)
-        receiver = BankAccount(123, initialbalance, AccountType.CHECKING, 10)
+        receiver = BankAccount("123", initialbalance, AccountType.CHECKING, 10)
         transferamount = Amount(100)
         
         bankdeposit = BankDeposit(receiver, transferamount)

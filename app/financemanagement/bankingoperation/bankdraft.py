@@ -7,26 +7,31 @@ from app.financemanagement.bankingoperation.bankoperationtype import BankOperati
 
 
 class BankDraft():
-    
+
     def __init__(self, target, withdrawamount):
 
         if(type(target) != BankAccount):
-            raise TypeError(f"The type informed is invalid for the context {target}")
+            raise TypeError(
+                f"The type informed is invalid for the context {target}")
         if(type(withdrawamount) != Amount):
-            raise TypeError(f"The type informed is invalid for the context {withdrawamount}")
-        
+            raise TypeError(
+                f"The type informed is invalid for the context {withdrawamount}")
+
         self.__target = target
         self.__withdrawamount = withdrawamount
         self.__bankoperationtype = BankOperationType.WITHDRAW
-    
+
     def towithdraw(self):
 
         accounttyperulesfactory = AccountTypeRulesFactory()
 
-        targetaccounttyperules = accounttyperulesfactory.make(self.__target.gettype())
+        targetaccounttyperules = accounttyperulesfactory.make(
+            self.__target.gettype())
         targetaccounttyperules.checklimitwithdrawal(self.__withdrawamount)
         self.__target.withdraw(self.__withdrawamount)
 
+        number = self.__target.getnumber()
         recorddescription = "Saque em conta bancaria"
         recorddepositamount = -int(self.__withdrawamount)
-        return BankTransactionRecord(self.__bankoperationtype, datetime.now(), recorddepositamount, recorddescription, self.__target.getid())
+        return BankTransactionRecord(
+            self.__bankoperationtype, number, datetime.now(), recorddepositamount, recorddescription, self.__target.getid())

@@ -1,3 +1,4 @@
+from app.financemanagement.amount import Amount
 from app.financemanagement.bankaccount import BankAccount
 from app.financemanagement.infrasctructure import Session
 from app.financemanagement.bankingoperation.bankdraft import BankDraft
@@ -14,6 +15,7 @@ class ToWithdraw():
     def execute(self, targetaccountnumber, withdrawamount):
         
         #Validar targetaccountnumber
+        withdrawamount = Amount(withdrawamount)
 
         targetaccount = self.__bankaccountrepository.findperaccountnumber(targetaccountnumber)
         bankdraft = BankDraft(targetaccount, withdrawamount)

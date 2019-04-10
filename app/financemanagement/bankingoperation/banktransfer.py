@@ -42,12 +42,14 @@ class BankTransfer(object):
         receiveraccounttyperules.checklimitreceive(self.__transferamount)
         self.__receiver.receive(self.__transferamount)
 
+        sendernumber = self.__sender.getnumber()
         recordsenderamount = -int(self.__transferamount)
         banktransactionrecordsender = BankTransactionRecord(
-            self.__bankoperationtype, whenoccurred, recordsenderamount, recorddescription, self.__sender.getid())
-
+            self.__bankoperationtype, sendernumber, whenoccurred, recordsenderamount, recorddescription, self.__sender.getid())
+        
+        receivernumber = self.__receiver.getnumber()
         recordreceiveramount = +int(self.__transferamount)
         banktransactionrecordreceiver = BankTransactionRecord(
-            self.__bankoperationtype, whenoccurred, recordreceiveramount, recorddescription, self.__receiver.getid())
+            self.__bankoperationtype, receivernumber, whenoccurred, recordreceiveramount, recorddescription, self.__receiver.getid())
 
         return (banktransactionrecordsender, banktransactionrecordreceiver)

@@ -13,7 +13,7 @@ class TestBankTransactionRecord(unittest.TestCase):
         description = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         
         with self.assertRaises(TypeError):
-            BankTransactionRecord(13, whenoccurred, amount, description, 1)
+            BankTransactionRecord(13, "123", whenoccurred, amount, description, 1)
 
     def test_not_should_register_a_bank_transaction_when_the_date_is_invalid(self):
 
@@ -22,7 +22,7 @@ class TestBankTransactionRecord(unittest.TestCase):
         description = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         
         with self.assertRaises(TypeError):
-            BankTransactionRecord(BankOperationType.DEPOSIT, whenoccurred, amount, description, 1)
+            BankTransactionRecord(BankOperationType.DEPOSIT, "123", whenoccurred, amount, description, 1)
 
     def test_not_should_register_a_bank_transaction_when_the_amount_is_invalid(self):
 
@@ -31,7 +31,7 @@ class TestBankTransactionRecord(unittest.TestCase):
         description = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         
         with self.assertRaises(TypeError):
-            BankTransactionRecord(BankOperationType.DEPOSIT, whenoccurred, amount, description, 1)
+            BankTransactionRecord(BankOperationType.DEPOSIT, "123", whenoccurred, amount, description, 1)
 
     def test_not_should_register_a_bank_transaction_when_the_description_is_invalid_type(self):
 
@@ -40,7 +40,7 @@ class TestBankTransactionRecord(unittest.TestCase):
         description = []
         
         with self.assertRaises(TypeError):
-            BankTransactionRecord(BankOperationType.DEPOSIT, whenoccurred, amount, description, 1)
+            BankTransactionRecord(BankOperationType.DEPOSIT, "123", whenoccurred, amount, description, 1)
 
     def test_not_should_register_a_bank_transaction_when_the_description_is_invalid_lenght(self):
 
@@ -49,7 +49,7 @@ class TestBankTransactionRecord(unittest.TestCase):
         description = "AAAAAA"
         
         with self.assertRaises(ValueError):
-            BankTransactionRecord(BankOperationType.DEPOSIT, whenoccurred, amount, description, 1)
+            BankTransactionRecord(BankOperationType.DEPOSIT, "123", whenoccurred, amount, description, 1)
 
     def test_not_should_register_a_bank_transaction_when_the_contaid_is_invalid(self):
 
@@ -58,7 +58,7 @@ class TestBankTransactionRecord(unittest.TestCase):
         description = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         
         with self.assertRaises(TypeError):
-            BankTransactionRecord(BankOperationType.DEPOSIT, whenoccurred, amount, description, -1)
+            BankTransactionRecord(BankOperationType.DEPOSIT, "123", whenoccurred, amount, description, -1)
 
     def test_should_register_a_bank_transaction(self):
 
@@ -66,7 +66,7 @@ class TestBankTransactionRecord(unittest.TestCase):
         amount = 100
         description = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         
-        banktransactionrecord = BankTransactionRecord(BankOperationType.DEPOSIT, whenoccurred, amount, description, 1)
+        banktransactionrecord = BankTransactionRecord(BankOperationType.DEPOSIT, "123", whenoccurred, amount, description, 1)
         
         self.assertIsInstance(banktransactionrecord, BankTransactionRecord)
         self.assertIsNotNone(banktransactionrecord)

@@ -8,6 +8,7 @@ CREATE TABLE BankAccount(
 CREATE TABLE BankTransactionRecord(
 	Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	Operation INTEGER NOT NULL,
+	Number String NOT NULL,
 	WhenCccurred DateTime NOT NULL,
 	Amount Decimal NOT NULL,
 	Description String(100) NOT NULL,

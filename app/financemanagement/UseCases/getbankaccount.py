@@ -10,4 +10,4 @@ class GetBankAccount():
         self.__bankaccountrepository = BankAccountRepository(self.__session)
 
     def execute(self, accountnumber):
-        return self.__bankaccountrepository.findperaccountnumber(accountnumber)
+        return self.__bankaccountrepository.findperaccountnumberreturnmodel(accountnumber)

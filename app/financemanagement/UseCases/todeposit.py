@@ -1,3 +1,4 @@
+from app.financemanagement.amount import Amount
 from app.financemanagement.bankaccount import BankAccount
 from app.financemanagement.infrasctructure import Session
 from app.financemanagement.bankingoperation.bankdeposit import BankDeposit
@@ -14,6 +15,7 @@ class ToDeposit():
     def execute(self, receiveraccountnumber, depositamount):
         
         #Validar targetaccountnumber
+        depositamount = Amount(depositamount)
 
         receiveraccount = self.__bankaccountrepository.findperaccountnumber(receiveraccountnumber)
         bankdeposit = BankDeposit(receiveraccount, depositamount)
