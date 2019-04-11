@@ -1,45 +1,203 @@
-**Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**
+# POC: Python - Bank account
 
-When you're done, you can delete the content in this README and update the file with details for others getting started with your repository.
+This project has the objective of use and demonstrate the python use in practice.
 
-*We recommend that you open this README in another tab as you perform the tasks below. You can [watch our video](https://youtu.be/0ocf7u76WSo) for a full demo of all the steps in this tutorial. Open the video in a new tab to avoid leaving Bitbucket.*
+## Stack used:
+> 
+* Python 3.6.8
+* Flask 1.0.2
+* SQLAlchemy 1.3.2
+* SQLite 3
+>
 
----
+## Structure resume:
 
-## Edit a file
+```
+project    
+│
+└───app
+│   │   
+│   └───financemanagement
+|       |
+|       └───bankingoperation
+|       |
+|       └───infrasctructure
+|       |
+|       └───usecases
+|       |
+|       └───tests
+│   
+└───webapp
+    |
+    └───resources
+        |
+        └───bankaccount
+```
 
-You’ll start by editing this README file to learn how to edit a file in Bitbucket.
+All start in the package [app], where the modules of the software are implemented, in our case, [financemanagement].
 
-1. Click **Source** on the left side.
-2. Click the README.md link from the list of files.
-3. Click the **Edit** button.
-4. Delete the following text: *Delete this line to make a change to the README from Bitbucket.*
-5. After making your change, click **Commit** and then **Commit** again in the dialog. The commit page will open and you’ll see the change you just made.
-6. Go back to the **Source** page.
+Each module contains your own architecture, making it decoupled and independent, according to your necessity and complexity.
 
----
+### In our sample:
 
-## Create a file
+```
+[bankingoperation] => Sub-package, implementation the banking operations
+[infrasctructure] => Foundation base of the module, as the persistence of the data.
+[usecases] => Segregation and communication the objects responsibles for the realization of one of the feature / behavior of that module.
+[tests] => unittests
+```
 
-Next, you’ll add a new file to this repository.
+The main means of communication is through the HTTP protocol, where the package [webapp] is responsible therefore.
 
-1. Click the **New file** button at the top of the **Source** page.
-2. Give the file a filename of **contributors.txt**.
-3. Enter your name in the empty file space.
-4. Click **Commit** and then **Commit** again in the dialog.
-5. Go back to the **Source** page.
+### In our sample:
 
-Before you move on, go ahead and explore the repository. You've already seen the **Source** page, but check out the **Commits**, **Branches**, and **Settings** pages.
+```
+[resources] => Sub-package, implemented the resources of the software modules as [bankaccount] through controllers.
+[utils] => Auxiliaries recourses for the modules of package [webapp]
+```
 
----
+## Ports and Adapter concepts:
 
-## Clone a repository
+Maintain the segregation of responsibility between the architecture parts, how the modules, not leaking out behavior and mainly generate a very weak accouplement between them and yes modularize.
 
-Use these steps to clone from SourceTree, our client for using the repository command-line free. Cloning allows you to work on your files locally. If you don't yet have SourceTree, [download and install first](https://www.sourcetreeapp.com/). If you prefer to clone from the command line, see [Clone a repository](https://confluence.atlassian.com/x/4whODQ).
+That all to fortalice the limit delimited between contexts.
 
-1. You’ll see the clone button under the **Source** heading. Click that button.
-2. Now click **Check out in SourceTree**. You may need to create a SourceTree account or log in.
-3. When you see the **Clone New** dialog in SourceTree, update the destination path and name if you’d like to and then click **Clone**.
-4. Open the directory you just created to see your repository’s files.
+>
+https://www.thinktocode.com/2018/07/19/ports-and-adapters-architecture/
+>
 
-Now that you're more familiar with your Bitbucket repository, go ahead and add a new file locally. You can [push your change back to Bitbucket with SourceTree](https://confluence.atlassian.com/x/iqyBMg), or you can [add, commit,](https://confluence.atlassian.com/x/8QhODQ) and [push from the command line](https://confluence.atlassian.com/x/NQ0zDQ).
+### In our sample:
+
+```
+[ports] => Controllers, that do not know low level modules how [bankaccount], but yes high level how usecase [todeposit].
+[adapters] 
+{
+    Everything that is external to the rules/requiriments of the software modules, 
+    an interface defined to represent a behavior expected by rule a module, 
+    adapters to this behavior should implement the same to execution.
+
+    Ex:
+        Behavior expected [repository]: add(), update(), find()
+        Bahavior in SQLAlchemy adapter [repository]: add(), update(), find()...
+
+    Different from static languages, python for being dynamic, implements interfaces (to IOC) of form explicit, thanks to interpretation.
+
+    You define the behavior expected, soon the obj used should corresponding, else don't function.
+
+}
+```
+
+
+# Resources:
+
+[BankAccount]
+
+<details><summary>Create bank account</summary>
+<p>
+
+```
+Endpoint: /bankaccounts
+Http verb: POST
+Payload sample:
+{
+	"balance": 100,
+	"accounttype": 1
+}
+```
+</p>
+</details>
+
+<details><summary>Get all bank accounts</summary>
+<p>
+
+```
+Endpoint: /bankaccounts
+Http verb: GET
+Not payload
+```
+</p>
+</details>
+
+<details><summary>Get bank accounts</summary>
+<p>
+
+```
+Endpoint: /bankaccounts/account_number
+Http verb: GET
+Not payload
+```
+</p>
+</details>
+
+<details><summary>To deposit</summary>
+<p>
+
+```
+Endpoint: /bankaccounts/account_number/todeposit
+Http verb: PUT
+Payload sample:
+{
+	"depositamount": 1000
+}
+```
+</p>
+</details>
+
+<details><summary>To withdraw</summary>
+<p>
+
+```
+Endpoint: /bankaccounts/account_number/towithdraw
+Http verb: PUT
+Payload sample:
+{
+	"withdrawamount": 100
+}
+```
+</p>
+</details>
+
+<details><summary>To transfer</summary>
+<p>
+
+```
+Endpoint: /bankaccounts/totransfer
+Http verb: PUT
+Payload sample:
+{
+	"senderaccountnumber": "453597448782153408",
+	"receiveraccountnumber": "199500548873012934",
+	"transferamount": 100
+}
+```
+</p>
+</details>
+
+<details><summary>Get extract</summary>
+<p>
+
+```
+Endpoint: /bankaccounts/account_number/banktransactionrecords
+Http verb: GET
+Not payload
+```
+</p>
+</details>
+
+# Run application:
+
+For installing all dependencies of the project:
+>
+    pip install -r requirements.txt in your shell.
+>
+
+The bank is a SQLITE, check if there is a file representing the database, named: bank.db
+
+If exist, open and check if exists the tables [BankAccount] and [BankTransactionRecord], case have, next, else, open the file [scripts.sql] and create.
+
+NOTE: I suggest use DBbrowser sqlite for the database management.
+
+If all is ok, run:
+>
+    python run.py
+>
